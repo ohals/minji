@@ -1,0 +1,123 @@
+<html>
+<head>
+    <script>
+    $(document).ready(function() {
+
+            // 최초 한번 리그 리스트를 받아 온다.
+            $.ajax({
+				url: './record_ajax/league_list.php',
+				dataType: 'json',
+				async: 'false',
+				success: function(Data){
+					alert('test');
+					var HTML = "";
+					
+					$.each(Data, function(){
+						HTML += "<option value=''>" + this.league_name + "</option>"
+					});
+
+					$('#choose_league').html(HTML);
+				}, 
+				error: function(){
+					alert('리그 리스트 목록 로딩 실패');
+				}
+
+            });
+            // 로그인 버튼 클릭시
+            $('#main_login_btn').click(function() {
+                // 로그인 페이지로 이동
+                $.mobile.changePage('login.php',{transition:"slidedown"});
+            }); // end of 로그인
+            // 로그인 버튼 클릭시
+            $('#main_logout_btn').click(function() {
+                // 로그아웃 처리
+                $.session.clear();
+                // 로그인 버튼을 보여준다.
+                $("#main_logout_btn").hide();
+                $("#main_login_btn").show();
+            }); // end of 로그아웃
+
+            $('#choose_league').change(function(){
+
+				var league = $('#choose_league').val();
+
+				selectupdate(league);
+				
+				gamelistupdate(league, false, false, false);
+            });
+
+            $('#choose_comp').change(function(){
+
+				var league	= $('#choose_league').val();
+				var comp	= $('#choose_comp').val();		
+				
+				gamelistupdate(select, comp, false, false);
+            });
+
+            $('#choose_team').change(function(){
+
+            	var league	= $('#choose_league').val();
+				var comp	= $('#choose_comp').val();	
+				var team	= $('#choose_team').val();
+				
+				gamelistupdate(league, comp, team, false);
+            });
+
+            $('#choose_member').change(function(){
+
+            	var league	= $('#choose_league').val();
+				var comp	= $('#choose_comp').val();	
+				var team	= $('#choose_team').val();
+				var member	= $('#choose_member').val();
+				
+				gamelistupdate(league, comp, team, member);
+            });
+
+            
+
+        }); // end of document.ready
+
+        function selectupdate(league){
+            $.ajax({
+				url: '',
+				data: {'game_index': },
+				dataType: 'json',
+				async: 'false',
+				success: function(Data){
+
+				}, 
+				error: function(){
+					alert('리그 리스트 목록 로딩 실패');
+				}
+
+            });
+
+         
+
+        }
+
+        function gamelistupdate(league, comp, team, member){
+			
+				$.ajax({
+					url: '',
+					data: {'game_index': },
+					dataType: 'json',
+					async: 'false',
+					success: function(Data){
+
+					}, 
+					error: function(){
+						alert('리그 리스트 목록 로딩 실패');
+					}
+
+	            });
+			
+		
+        }
+    
+    </script>
+    </head>
+<body>
+        <?php echo $_POST['hidden']?>
+</body>
+</html>
